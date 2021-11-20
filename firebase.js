@@ -1,6 +1,4 @@
-import { initializeApp, getApp, getApps } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
+import firebase from "firebase";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCwTJ8aLesXykEQXoquK5LEBXLzsaiWBXE",
@@ -12,8 +10,10 @@ const firebaseConfig = {
 };
 
 // If my app is not initilized - initialize it. If there is keep using the same app
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-const db = getFirestore();
-const storage = getStorage();
+const app = !firebase.apps.length
+  ? firebase.initializeApp(firebaseConfig)
+  : firebase.app();
 
-export { app, db, storage };
+const db = app.firestore();
+
+export { db };

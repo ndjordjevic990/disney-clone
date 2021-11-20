@@ -1,20 +1,17 @@
-// pages / api / auth / [...nextauth].js;
 import NextAuth from "next-auth";
-//import Providers from "next-auth/providers";
-import GoogleProvider from "next-auth/providers/google";
-
-import { FirebaseAdapter } from "@next-auth/firebase-adapter";
+import Providers from "next-auth/providers";
 import { db } from "../../../firebase";
+import { FirebaseAdapter } from "@next-auth/firebase-adapter";
 
 export default NextAuth({
   // Configure one or more authentication providers
   providers: [
-    GoogleProvider({
+    Providers.Google({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
     }),
+    // ...add more providers here
   ],
 
-  //anytime user log in in the app it will store user details inside firestore db
   adapter: FirebaseAdapter(db),
 });
