@@ -1,8 +1,17 @@
 import Head from "next/head";
 import Header from "../components/Header";
 import { getSession, useSession } from "next-auth/client";
+import Slider from "../components/Slider";
+import Brands from "../components/Brands";
+import MoviesCollection from "../components/MoviesCollection";
+import ShowsCollection from "../components/ShowsCollection";
 
-export default function Home() {
+export default function Home({
+  popularMovies,
+  popularShows,
+  topRatedMovies,
+  topRatedShows,
+}) {
   const [session] = useSession();
   return (
     <div>
@@ -12,7 +21,21 @@ export default function Home() {
       </Head>
 
       <Header />
-      {!session ? <c /> : <main>App</main>}
+      {!session ? (
+        <LogInPage />
+      ) : (
+        <main className="relative min-h-screen after:bg-home after:bg-center after:bg-cover after:bg-no-repeat after:bg-fixed after:absolute after:inset-0 after:z-[-1] ">
+          <Slider />
+          <Brands />
+          <MoviesCollection results={popularMovies} title={"Popular Movies"} />
+          <ShowsCollection results={popularShows} title={"Popular Shows"} />
+          <MoviesCollection
+            results={topRatedMovies}
+            title={"Top Rated Movies"}
+          />
+          <ShowsCollection results={topRatedShows} title={"Top Rated Shows"} />
+        </main>
+      )}
     </div>
   );
 }
@@ -20,10 +43,28 @@ export default function Home() {
 // remove the loading and fetch the user session on server side; to be used just inside of the main page (index.js)
 export async function getServerSideProps(context) {
   const session = await getSession(context);
-
+  const [popularMovies, popularShows, topRatedMovies, topRatedShows] =
+    await Promise.all([
+      fetch(
+        `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}&language=en-US&page=1`
+      ).then((res) => res.json()),
+      fetch(
+        `https://api.themoviedb.org/3/tv/popular?api_key=${process.env.API_KEY}&language=en-US&page=1`
+      ).then((res) => res.json()),
+      fetch(
+        `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.API_KEY}&language=en-US&page=1`
+      ).then((res) => res.json()),
+      fetch(
+        `https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.API_KEY}&language=en-US&page=1`
+      ).then((res) => res.json()),
+    ]);
   return {
     props: {
       session,
+      popularMovies: popularMovies.results,
+      popularShows: popularShows.results,
+      topRatedMovies: topRatedMovies.results,
+      topRatedShows: topRatedShows.results,
     },
   };
 }
