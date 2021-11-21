@@ -60,7 +60,6 @@ function Header() {
       ) : (
         <img
           src={session.user.image}
-          alt=""
           className="ml-auto h-12 w-12 rounded-full object-cover cursor-pointer"
           onClick={signOut}
         />

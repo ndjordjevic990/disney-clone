@@ -5,6 +5,7 @@ import Slider from "../components/Slider";
 import Brands from "../components/Brands";
 import MoviesCollection from "../components/MoviesCollection";
 import ShowsCollection from "../components/ShowsCollection";
+import LogInPage from "../components/LogInPage";
 
 export default function Home({
   popularMovies,

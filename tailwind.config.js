@@ -8,6 +8,9 @@ module.exports = {
         home: "url('/images/background.png')",
       }),
     },
+    fontFamily: {
+      body: ["Montserrat", "sans-serif"],
+    },
   },
   variants: {
     extend: {},

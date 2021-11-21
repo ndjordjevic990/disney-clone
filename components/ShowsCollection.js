@@ -1,4 +1,4 @@
-import MovieThumbnail from "./MovieThumbnail";
+import ShowThumbnail from "./ShowThumbnail";
 
 function ShowsCollection({ results, title }) {
   return (
@@ -6,7 +6,7 @@ function ShowsCollection({ results, title }) {
       <h2 className="font-semibold">{title}</h2>
       <div className="flex space-x-6 overflow-y-hidden overflow-x-scroll scrollbar-hide p-2 -m-2">
         {results.map((result) => (
-          <MovieThumbnail key={result.id} result={result} />
+          <ShowThumbnail key={result.id} result={result} />
         ))}
       </div>
     </div>
