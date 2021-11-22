@@ -1,7 +1,7 @@
 # Demo
 
 Log In with your Google account.
-[https://disney-clone-delta.vercel.app/](https://disney-clone-delta.vercel.app/)
+[https://disney-clone-delta.vercel.app/](https://disney-clone-delta.vercel.app/) or https://disney-clone-q0l1wysnh-ndjordjevic990.vercel.app/
 
 # Next.js + Tailwind CSS Example
 
