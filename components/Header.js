@@ -28,7 +28,10 @@ function Header() {
             <HomeIcon className="h-4" />
             <span className="span">Home</span>
           </a>
-          <a className="header-link group">
+          <a
+            className="header-link group"
+            onClick={() => router.push("/search")}
+          >
             <SearchIcon className="h-4" />
             <span className="span">Search</span>
           </a>
