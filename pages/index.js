@@ -4,7 +4,6 @@ import { getSession, useSession } from "next-auth/client";
 import Slider from "../components/Slider";
 import Brands from "../components/Brands";
 import MoviesCollection from "../components/MoviesCollection";
-import ShowsCollection from "../components/ShowsCollection";
 import LogInPage from "../components/LogInPage";
 
 export default function Home({
@@ -32,14 +31,26 @@ export default function Home({
             results={popularMovies}
             title={"Popular Movies"}
             _class={"flexing"}
+            type={"movie"}
           />
-          <ShowsCollection results={popularShows} title={"Popular Shows"} />
+          <MoviesCollection
+            results={popularShows}
+            title={"Popular Shows"}
+            _class={"flexing"}
+            type={"show"}
+          />
           <MoviesCollection
             results={topRatedMovies}
             title={"Top Rated Movies"}
             _class={"flexing"}
+            type={"movie"}
           />
-          <ShowsCollection results={topRatedShows} title={"Top Rated Shows"} />
+          <MoviesCollection
+            results={topRatedShows}
+            title={"Top Rated Shows"}
+            _class={"flexing"}
+            type={"show"}
+          />
         </main>
       )}
     </div>
@@ -49,6 +60,8 @@ export default function Home({
 // remove the loading and fetch the user session on server side; to be used just inside of the main page (index.js)
 export async function getServerSideProps(context) {
   const session = await getSession(context);
+  const movieType = "movie";
+  const showType = "tv";
   const [popularMovies, popularShows, topRatedMovies, topRatedShows] =
     await Promise.all([
       fetch(
